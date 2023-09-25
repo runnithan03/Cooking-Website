@@ -1,0 +1,155 @@
+Categories Select.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner - Select Categories</title>
+    <style>
+        body {
+            background-color: #fff8e7;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        h1, p {
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 80%;
+            margin: 40px auto;
+        }
+
+        .category-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .category-box input[type="checkbox"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .category-box label {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .category-box input[type="checkbox"]:checked + label {
+            background-color: #b0e0e6;
+            border-radius: 10px;
+        }
+
+        button {
+            display: block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meal Planner</h1>
+    <p>Select three meal categories for the week:</p>
+
+    <form id="mealCategoriesForm">
+        <div class="grid">
+            <!-- Category boxes -->
+            <div class="category-box">
+                <input type="checkbox" id="italian" name="category" value="italian">
+                <label for="italian">Italian</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="indian" name="category" value="indian">
+                <label for="indian">Indian</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="carribean" name="category" value="carribean">
+                <label for="carribean">Carribean</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="mexican" name="category" value="mexican">
+                <label for="mexican">Mexican</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="chinese" name="category" value="chinese">
+                <label for="chinese">Chinese</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="thai" name="category" value="thai">
+                <label for="thai">Thai</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="burgers" name="category" value="burgers">
+                <label for="burgers">Burgers</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="chickenAndRice" name="category" value="chickenAndRice">
+                <label for="chickenAndRice">Chicken and Rice</label>
+            </div>
+            <div class="category-box">
+                <input type="checkbox" id="quickCooks" name="category" value="quickCooks">
+                <label for="quickCooks">Quick Cooks</label>
+            </div>
+        </div>
+        <button type="button" onclick="submitCategories()">Submit</button>
+    </form>
+
+    <script>
+        function submitCategories() {
+            const checkboxes = document.querySelectorAll('input[name="category"]:checked');
+            if (checkboxes.length !== 3) {
+                alert('Please select exactly three categories.');
+                return;
+            }
+
+            const selectedCategories = [];
+            checkboxes.forEach((checkbox) => {
+                selectedCategories.push(checkbox.value);
+            });
+
+            localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
+            window.location.href = "recipes.html";
+        }
+
+        document.querySelectorAll('.category-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+            });
+        });
+    </script>
+</body>
+</html>
